@@ -465,6 +465,15 @@ export class DefaultConfig implements Config {
           upgradable: true,
         };
         break;
+      case UnitType.Farm:
+        info = {
+          cost: this.costWrapper(
+            (numUnits: number) => Math.min(250_000, (numUnits + 1) * 50_000),
+            UnitType.Farm,
+          ),
+          constructionDuration: this.instantBuild() ? 0 : 2 * 10,
+        };
+        break;
       case UnitType.Train:
         info = {
           cost: () => 0n,
