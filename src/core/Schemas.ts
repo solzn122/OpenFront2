@@ -47,6 +47,7 @@ export type Intent =
   | MarkDisconnectedIntent
   | EmbargoAllIntent
   | UpgradeStructureIntent
+  | LinkFarmFactoryIntent
   | DeleteUnitIntent
   | KickPlayerIntent
   | TogglePauseIntent
@@ -71,6 +72,7 @@ export type BuildUnitIntent = z.infer<typeof BuildUnitIntentSchema>;
 export type UpgradeStructureIntent = z.infer<
   typeof UpgradeStructureIntentSchema
 >;
+export type LinkFarmFactoryIntent = z.infer<typeof LinkFarmFactoryIntentSchema>;
 export type MoveWarshipIntent = z.infer<typeof MoveWarshipIntentSchema>;
 export type QuickChatIntent = z.infer<typeof QuickChatIntentSchema>;
 export type MarkDisconnectedIntent = z.infer<
@@ -406,6 +408,12 @@ export const UpgradeStructureIntentSchema = z.object({
   unitId: z.number(),
 });
 
+export const LinkFarmFactoryIntentSchema = z.object({
+  type: z.literal("link_farm_factory"),
+  farmId: z.number(),
+  factoryId: z.number(),
+});
+
 export const CancelAttackIntentSchema = z.object({
   type: z.literal("cancel_attack"),
   attackID: z.string(),
@@ -475,6 +483,7 @@ const IntentSchema = z.discriminatedUnion("type", [
   DonateTroopIntentSchema,
   BuildUnitIntentSchema,
   UpgradeStructureIntentSchema,
+  LinkFarmFactoryIntentSchema,
   EmbargoIntentSchema,
   EmbargoAllIntentSchema,
   MoveWarshipIntentSchema,
