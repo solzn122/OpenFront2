@@ -51,6 +51,8 @@ function unit(
       target = nextTarget;
     },
     targetUnit: () => target,
+    setTrainStation: () => {},
+    hasTrainStation: () => false,
     touch: () => {
       state.touched = true;
     },
@@ -68,6 +70,31 @@ function game(units: Unit[]): Game {
   return {
     unit: (id: number) => byId.get(id),
     manhattanDist: (a: TileRef, b: TileRef) => Math.abs(a - b),
+    hasUnitNearby: (
+      tile: TileRef,
+      range: number,
+      type: UnitType,
+    ): boolean =>
+      units.some(
+        (u) => u.type() === type && Math.abs(u.tile() - tile) <= range,
+      ),
+    nearbyUnits: (
+      tile: TileRef,
+      range: number,
+      types: UnitType | readonly UnitType[],
+      predicate?: (value: { unit: Unit; distSquared: number }) => boolean,
+    ) => {
+      const typeList = Array.isArray(types) ? types : [types];
+      return units
+        .filter((u) => typeList.includes(u.type()))
+        .filter((u) => Math.abs(u.tile() - tile) <= range)
+        .map((u) => ({ unit: u, distSquared: Math.abs(u.tile() - tile) ** 2 }))
+        .filter((value) => predicate?.(value) ?? true);
+    },
+    config: () => ({
+      trainStationMaxRange: () => 100,
+    }),
+    addExecution: () => {},
   } as unknown as Game;
 }
 
@@ -109,6 +136,19 @@ describe("Farm/Factory income", () => {
     execution.tick(150);
 
     expect(owner.goldTotal).toBe(0n);
+  });
+
+  it("links to a nearby owned Factory using the rail-station pattern", () => {
+    const owner = player("owner");
+    const farm = unit(1, UnitType.Farm, owner, 10);
+    const factory = unit(2, UnitType.Factory, owner, 20);
+    const execution = new FarmExecution(farm);
+    execution.init(game([farm, factory]), 0);
+
+    execution.tick(0);
+
+    expect(farm.targetUnit()).toBe(factory);
+    expect(farm.touched).toBe(true);
   });
 
   it("stops generating if the Factory is destroyed", () => {

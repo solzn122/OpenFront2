@@ -236,7 +236,7 @@ export class RailNetworkImpl implements RailNetwork {
   computeGhostRailPaths(unitType: UnitType, tile: TileRef): TileRef[][] {
     // Factories already show their radius, so we'll exclude from ghost rails
     // in order not to clutter the interface too much.
-    if (![UnitType.City, UnitType.Port].includes(unitType)) {
+    if (![UnitType.City, UnitType.Port, UnitType.Farm].includes(unitType)) {
       return [];
     }
 
@@ -256,6 +256,7 @@ export class RailNetworkImpl implements RailNetwork {
     const neighbors = this.game.nearbyUnits(tile, maxRange, [
       UnitType.City,
       UnitType.Factory,
+      UnitType.Farm,
       UnitType.Port,
     ]);
     neighbors.sort((a, b) => a.distSquared - b.distSquared);
@@ -294,7 +295,7 @@ export class RailNetworkImpl implements RailNetwork {
     const neighbors = this.game.nearbyUnits(
       station.tile(),
       this.game.config().trainStationMaxRange(),
-      [UnitType.City, UnitType.Factory, UnitType.Port],
+      [UnitType.City, UnitType.Factory, UnitType.Farm, UnitType.Port],
     );
 
     const editedClusters = new Set<Cluster>();

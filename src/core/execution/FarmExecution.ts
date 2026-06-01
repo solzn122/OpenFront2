@@ -1,4 +1,5 @@
 import { Execution, Game, Unit, UnitType } from "../game/Game";
+import { TrainStationExecution } from "./TrainStationExecution";
 
 export const FARM_INCOME_INTERVAL_SECONDS = 15;
 export const FARM_INCOME_AMOUNT = 25_000n;
@@ -15,6 +16,7 @@ export class FarmExecution implements Execution {
   private linkedFactoryId: number | null = null;
   private linkedFarmOwnerId: string | null = null;
   private linkedFactoryOwnerId: string | null = null;
+  private stationCreated = false;
 
   constructor(private farm: Unit) {}
 
@@ -29,7 +31,12 @@ export class FarmExecution implements Execution {
       return;
     }
 
-    const factory = this.farm.targetUnit();
+    if (!this.stationCreated) {
+      this.createStation();
+      this.stationCreated = true;
+    }
+
+    const factory = this.farm.targetUnit() ?? this.findLinkedFactory();
     if (!this.refreshLink(factory, ticks)) {
       return;
     }
@@ -57,6 +64,8 @@ export class FarmExecution implements Execution {
     }
 
     if (this.linkedFactoryId !== factory.id()) {
+      this.farm.setTargetUnit(factory);
+      this.farm.touch();
       this.linkedFactoryId = factory.id();
       this.linkedFarmOwnerId = this.farm.owner().id();
       this.linkedFactoryOwnerId = factory.owner().id();
@@ -85,10 +94,16 @@ export class FarmExecution implements Execution {
     if (this.farm.isUnderConstruction()) {
       return false;
     }
-    if (this.linkedFarmOwnerId !== this.farm.owner().id()) {
+    if (
+      this.linkedFarmOwnerId !== null &&
+      this.linkedFarmOwnerId !== this.farm.owner().id()
+    ) {
       return false;
     }
-    if (this.linkedFactoryOwnerId !== factory.owner().id()) {
+    if (
+      this.linkedFactoryOwnerId !== null &&
+      this.linkedFactoryOwnerId !== factory.owner().id()
+    ) {
       return false;
     }
     if (
@@ -107,5 +122,27 @@ export class FarmExecution implements Execution {
     this.linkedFactoryId = null;
     this.linkedFarmOwnerId = null;
     this.linkedFactoryOwnerId = null;
+  }
+
+  private createStation(): void {
+    const nearbyFactory = this.game.hasUnitNearby(
+      this.farm.tile(),
+      this.game.config().trainStationMaxRange(),
+      UnitType.Factory,
+    );
+    if (nearbyFactory) {
+      this.game.addExecution(new TrainStationExecution(this.farm));
+    }
+  }
+
+  private findLinkedFactory(): Unit | undefined {
+    return this.game
+      .nearbyUnits(
+        this.farm.tile(),
+        FARM_FACTORY_MAX_LINK_DISTANCE,
+        UnitType.Factory,
+        ({ unit }) => this.isValidLink(unit as Unit),
+      )
+      .sort((a, b) => a.distSquared - b.distSquared)[0]?.unit;
   }
 }

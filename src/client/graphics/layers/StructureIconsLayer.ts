@@ -739,11 +739,18 @@ export class StructureIconsLayer implements Layer {
       return null;
     }
     const tile = this.game.ref(cell.x, cell.y);
-    return (
+    const clickedUnit =
       this.game
         .units()
         .find((unit) => Structures.has(unit.type()) && unit.tile() === tile) ??
-      null
+      null;
+    if (clickedUnit) {
+      return clickedUnit;
+    }
+    return (
+      this.game
+        .nearbyUnits(tile, 6, Structures.types)
+        .sort((a, b) => a.distSquared - b.distSquared)[0]?.unit ?? null
     );
   }
 

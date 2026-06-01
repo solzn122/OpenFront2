@@ -11,7 +11,7 @@ import { GameUpdateType } from "../../../core/game/GameUpdates";
 import { GameView, UnitView } from "../../../core/game/GameView";
 const cityIcon = assetUrl("images/buildings/cityAlt1.png");
 const factoryIcon = assetUrl("images/buildings/factoryAlt1.png");
-const farmIcon = assetUrl("images/TreeIconWhite.svg");
+const farmIcon = assetUrl("images/FarmUnit.v1.svg");
 const shieldIcon = assetUrl("images/buildings/fortAlt3.png");
 const anchorIcon = assetUrl("images/buildings/port1.png");
 const missileSiloIcon = assetUrl("images/buildings/silo1.png");

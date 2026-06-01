@@ -12,7 +12,7 @@ import { TransformHandler } from "../TransformHandler";
 const anchorIcon = assetUrl("images/AnchorIcon.v1.png");
 const cityIcon = assetUrl("images/CityIcon.v1.png");
 const factoryIcon = assetUrl("images/FactoryUnit.v1.png");
-const farmIcon = assetUrl("images/TreeIconWhite.svg");
+const farmIcon = assetUrl("images/FarmUnit.v1.svg");
 const missileSiloIcon = assetUrl("images/MissileSiloUnit.v1.png");
 const SAMMissileIcon = assetUrl("images/SamLauncherUnit.v1.png");
 const shieldIcon = assetUrl("images/ShieldIcon.v1.png");
