@@ -272,7 +272,111 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
     </span>`;
   }
 
+  private renderPlayerStatsPanel(player: PlayerView) {
+    const myPlayer = this.game.myPlayer();
+    const isFriendly = myPlayer?.isFriendly(player);
+    const relationName =
+      !myPlayer || myPlayer === player
+        ? this.getRelationName(Relation.Neutral)
+        : this.getRelationName(
+            this.playerProfile?.relations[myPlayer.smallID()] ??
+              Relation.Neutral,
+          );
+    const totalTroops = player.troops();
+    const maxTroops = this.game.config().maxTroops(player);
+    const attackingTroops = player
+      .outgoingAttacks()
+      .map((a) => a.troops)
+      .reduce((a, b) => a + b, 0);
+    let playerType = "";
+    switch (player.type()) {
+      case PlayerType.Bot:
+        playerType = translateText("player_type.bot");
+        break;
+      case PlayerType.Nation:
+        playerType = translateText("player_type.nation");
+        break;
+      case PlayerType.Human:
+        playerType = translateText("player_type.player");
+        break;
+    }
+
+    return html`
+      <div class="flex flex-col gap-3 p-4">
+        <div
+          class="flex items-center gap-3 min-w-0 ${this.getPlayerNameColor(
+            isFriendly ?? false,
+          )}"
+        >
+          ${player.cosmetics.flag
+            ? html`<img
+                class="w-16 h-10 object-contain border-2 border-black/80 shrink-0"
+                src=${assetUrl(player.cosmetics.flag!)}
+              />`
+            : html``}
+          <div
+            class="px-3 py-1 rounded-md border border-yellow-400/70 text-yellow-300 font-bold"
+            translate="no"
+          >
+            ${renderNumber(player.gold())}
+          </div>
+          <div class="flex items-center gap-1 min-w-0 flex-1">
+            <span class="truncate text-2xl font-bold"
+              >${player.displayName()}</span
+            >
+            ${this.getRelationSmiley(player, myPlayer)}
+            ${this.renderPlayerNameIcons(player)}
+          </div>
+        </div>
+
+        <div class="h-px bg-cyan-400/50"></div>
+
+        <div class="flex items-center justify-between text-xl">
+          <span class="text-gray-200">${playerType}</span>
+          <span class="font-bold text-white">${relationName}</span>
+        </div>
+
+        <div class="flex items-center justify-between text-xl" translate="no">
+          <span class="text-gray-300">Troops</span>
+          <span class="font-bold text-white">${renderTroops(totalTroops)}</span>
+        </div>
+
+        <div
+          class="flex items-center gap-3 px-6 py-4 border-4 rounded-md border-yellow-400 font-bold text-yellow-300 text-2xl"
+          translate="no"
+        >
+          <img src=${goldCoinIcon} width="32" height="32" />
+          <span>${renderNumber(player.gold())}</span>
+        </div>
+
+        <div translate="no">
+          ${this.renderTroopBar(totalTroops, attackingTroops, maxTroops)}
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          ${this.displayUnitCount(player, UnitType.City, cityIcon)}
+          ${this.displayUnitCount(player, UnitType.Factory, factoryIcon)}
+          ${this.displayUnitCount(player, UnitType.Port, portIcon)}
+          ${this.displayUnitCount(player, UnitType.Farm, farmIcon)}
+          ${this.displayUnitCount(
+            player,
+            UnitType.MissileSilo,
+            missileSiloIcon,
+          )}
+          ${this.displayUnitCount(
+            player,
+            UnitType.SAMLauncher,
+            samLauncherIcon,
+          )}
+          ${this.displayUnitCount(player, UnitType.Warship, warshipIcon)}
+        </div>
+      </div>
+    `;
+  }
+
   private renderPlayerInfo(player: PlayerView) {
+    return this.renderPlayerStatsPanel(player);
+
     const myPlayer = this.game.myPlayer();
     const isFriendly = myPlayer?.isFriendly(player);
     const isAllied = myPlayer?.isAlliedWith(player);
@@ -293,7 +397,7 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
           class="flex items-center ml-auto mr-0 gap-1 text-sm font-bold leading-tight"
         >
           <img src=${allianceIcon} width="20" height="20" />
-          ${this.allianceExpirationText(alliance)}
+          ${this.allianceExpirationText(alliance!)}
         </div>`;
       }
     }
@@ -508,7 +612,7 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
         @contextmenu=${(e: MouseEvent) => e.preventDefault()}
       >
         <div
-          class="bg-gray-800/92 backdrop-blur-sm rounded-lg shadow-lg text-white text-base w-72 overflow-hidden border border-white/10 ${containerClasses}"
+          class="bg-gray-800/92 backdrop-blur-sm rounded-lg shadow-lg text-white text-base w-[400px] max-w-full overflow-hidden border border-white/10 ${containerClasses}"
         >
           ${this.player !== null ? this.renderPlayerInfo(this.player) : ""}
           ${this.unit !== null ? this.renderUnitInfo(this.unit) : ""}
