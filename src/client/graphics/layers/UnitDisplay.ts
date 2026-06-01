@@ -125,87 +125,91 @@ export class UnitDisplay extends LitElement implements Layer {
     }
 
     return html`
-      <div class="border-t border-white/10 p-0.5 w-full">
+      <div class="border-t border-white/10 px-0.5 py-1 w-full">
         <div
-          class="grid grid-rows-1 auto-cols-max grid-flow-col gap-0.5 w-fit mx-auto"
+          class="flex flex-col items-center justify-center gap-0.5 w-fit mx-auto"
         >
-          ${this.renderUnitItem(
-            cityIcon,
-            this._cities,
-            UnitType.City,
-            "city",
-            this.keybinds["buildCity"]?.key ?? "1",
-          )}
-          ${this.renderUnitItem(
-            factoryIcon,
-            this._factories,
-            UnitType.Factory,
-            "factory",
-            this.keybinds["buildFactory"]?.key ?? "2",
-          )}
-          ${this.renderUnitItem(
-            portIcon,
-            this._port,
-            UnitType.Port,
-            "port",
-            this.keybinds["buildPort"]?.key ?? "3",
-          )}
-          ${this.renderUnitItem(
-            defensePostIcon,
-            this._defensePost,
-            UnitType.DefensePost,
-            "defense_post",
-            this.keybinds["buildDefensePost"]?.key ?? "4",
-          )}
-          ${this.renderUnitItem(
-            missileSiloIcon,
-            this._missileSilo,
-            UnitType.MissileSilo,
-            "missile_silo",
-            this.keybinds["buildMissileSilo"]?.key ?? "5",
-          )}
-          ${this.renderUnitItem(
-            samLauncherIcon,
-            this._samLauncher,
-            UnitType.SAMLauncher,
-            "sam_launcher",
-            this.keybinds["buildSamLauncher"]?.key ?? "6",
-          )}
-          ${this.renderUnitItem(
-            farmIcon,
-            this._farms,
-            UnitType.Farm,
-            "farm",
-            this.keybinds["buildFarm"]?.key ?? "7",
-          )}
-          ${this.renderUnitItem(
-            warshipIcon,
-            this._warships,
-            UnitType.Warship,
-            "warship",
-            this.keybinds["buildWarship"]?.key ?? "Shift+7",
-          )}
-          ${this.renderUnitItem(
-            atomBombIcon,
-            null,
-            UnitType.AtomBomb,
-            "atom_bomb",
-            this.keybinds["buildAtomBomb"]?.key ?? "Shift+8",
-          )}
-          ${this.renderUnitItem(
-            hydrogenBombIcon,
-            null,
-            UnitType.HydrogenBomb,
-            "hydrogen_bomb",
-            this.keybinds["buildHydrogenBomb"]?.key ?? "Shift+9",
-          )}
-          ${this.renderUnitItem(
-            mirvIcon,
-            null,
-            UnitType.MIRV,
-            "mirv",
-            this.keybinds["buildMIRV"]?.key ?? "Shift+0",
-          )}
+          <div class="grid grid-rows-1 auto-cols-max grid-flow-col gap-0.5">
+            ${this.renderUnitItem(
+              cityIcon,
+              this._cities,
+              UnitType.City,
+              "city",
+              this.keybinds["buildCity"]?.key ?? "1",
+            )}
+            ${this.renderUnitItem(
+              factoryIcon,
+              this._factories,
+              UnitType.Factory,
+              "factory",
+              this.keybinds["buildFactory"]?.key ?? "2",
+            )}
+            ${this.renderUnitItem(
+              portIcon,
+              this._port,
+              UnitType.Port,
+              "port",
+              this.keybinds["buildPort"]?.key ?? "3",
+            )}
+            ${this.renderUnitItem(
+              defensePostIcon,
+              this._defensePost,
+              UnitType.DefensePost,
+              "defense_post",
+              this.keybinds["buildDefensePost"]?.key ?? "4",
+            )}
+            ${this.renderUnitItem(
+              missileSiloIcon,
+              this._missileSilo,
+              UnitType.MissileSilo,
+              "missile_silo",
+              this.keybinds["buildMissileSilo"]?.key ?? "5",
+            )}
+            ${this.renderUnitItem(
+              samLauncherIcon,
+              this._samLauncher,
+              UnitType.SAMLauncher,
+              "sam_launcher",
+              this.keybinds["buildSamLauncher"]?.key ?? "6",
+            )}
+            ${this.renderUnitItem(
+              farmIcon,
+              this._farms,
+              UnitType.Farm,
+              "farm",
+              this.keybinds["buildFarm"]?.key ?? "7",
+            )}
+          </div>
+          <div class="grid grid-rows-1 auto-cols-max grid-flow-col gap-0.5">
+            ${this.renderUnitItem(
+              warshipIcon,
+              this._warships,
+              UnitType.Warship,
+              "warship",
+              this.keybinds["buildWarship"]?.key ?? "Shift+7",
+            )}
+            ${this.renderUnitItem(
+              atomBombIcon,
+              null,
+              UnitType.AtomBomb,
+              "atom_bomb",
+              this.keybinds["buildAtomBomb"]?.key ?? "Shift+8",
+            )}
+            ${this.renderUnitItem(
+              hydrogenBombIcon,
+              null,
+              UnitType.HydrogenBomb,
+              "hydrogen_bomb",
+              this.keybinds["buildHydrogenBomb"]?.key ?? "Shift+9",
+            )}
+            ${this.renderUnitItem(
+              mirvIcon,
+              null,
+              UnitType.MIRV,
+              "mirv",
+              this.keybinds["buildMIRV"]?.key ?? "Shift+0",
+            )}
+          </div>
         </div>
       </div>
     `;
