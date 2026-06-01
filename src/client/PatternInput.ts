@@ -122,7 +122,12 @@ export class PatternInput extends LitElement {
     }
 
     let previewContent;
-    if (this.pattern) {
+    if (this.selectedColor) {
+      previewContent = html`<div
+        class="w-full h-full"
+        style="background: ${this.selectedColor};"
+      ></div>`;
+    } else if (this.pattern) {
       previewContent = renderPatternPreview(this.pattern, 128, 128);
     } else {
       previewContent = renderPatternPreview(null, 128, 128);

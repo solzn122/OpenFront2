@@ -262,8 +262,11 @@ export async function getPlayerCosmeticsRefs(): Promise<PlayerCosmeticRefs> {
     userSettings.clearFlag();
   }
 
+  const color = userSettings.getTerritoryColor();
+
   return {
     flag: flag ?? undefined,
+    color: color ?? undefined,
     patternName: pattern?.name ?? undefined,
     patternColorPaletteName: pattern?.colorPalette?.name ?? undefined,
   };
@@ -277,6 +280,12 @@ export async function getPlayerCosmetics(): Promise<PlayerCosmetics> {
 
   if (refs.flag) {
     result.flag = await resolveFlagUrl(refs.flag);
+  }
+
+  if (refs.color) {
+    result.color = {
+      color: refs.color,
+    };
   }
 
   if (refs.patternName && cosmetics) {
