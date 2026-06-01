@@ -264,15 +264,11 @@ export class PlayerView {
       } satisfies ColorPalette;
     }
 
-    if (this.team() === null) {
-      this._territoryColor = colord(
-        this.cosmetics.color?.color ??
-          pattern?.colorPalette?.primaryColor ??
-          defaultTerritoryColor.toHex(),
-      );
-    } else {
-      this._territoryColor = defaultTerritoryColor;
-    }
+    const selectedTerritoryColor =
+      this.cosmetics.color?.color ?? pattern?.colorPalette?.primaryColor;
+    this._territoryColor = colord(
+      selectedTerritoryColor ?? defaultTerritoryColor.toHex(),
+    );
 
     this._structureColors = theme.structureColors(this._territoryColor);
 
