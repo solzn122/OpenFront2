@@ -220,12 +220,12 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
   private displayUnitCount(player: PlayerView, type: UnitType, icon: string) {
     return !this.game.config().isUnitDisabled(type)
       ? html`<div
-          class="flex items-center justify-between gap-2 px-2 py-1 border rounded-md border-gray-500 bg-black/15 text-xs min-h-7"
+          class="flex items-center justify-between gap-1.5 px-2 py-1 border rounded-md border-gray-500 bg-black/15 text-xs min-h-6"
           translate="no"
         >
           <img
             src=${icon}
-            class="w-4 h-4 object-contain shrink-0"
+            class="w-3.5 h-3.5 object-contain shrink-0"
           />
           <span class="font-bold tabular-nums"
             >${player.totalUnitLevels(type)}</span
@@ -302,26 +302,26 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
     }
 
     return html`
-      <div class="flex flex-col gap-3 p-4">
+      <div class="flex flex-col gap-2 p-2.5">
         <div
-          class="flex items-center gap-3 min-w-0 ${this.getPlayerNameColor(
+          class="flex items-center gap-2 min-w-0 ${this.getPlayerNameColor(
             isFriendly ?? false,
           )}"
         >
           ${player.cosmetics.flag
             ? html`<img
-                class="w-16 h-10 object-contain border-2 border-black/80 shrink-0"
+                class="w-11 h-7 object-contain border border-black/80 shrink-0"
                 src=${assetUrl(player.cosmetics.flag!)}
               />`
             : html``}
           <div
-            class="px-3 py-1 rounded-md border border-yellow-400/70 text-yellow-300 font-bold"
+            class="px-2 py-0.5 rounded-md border border-yellow-400/70 text-yellow-300 font-bold text-sm"
             translate="no"
           >
             ${renderNumber(player.gold())}
           </div>
           <div class="flex items-center gap-1 min-w-0 flex-1">
-            <span class="truncate text-2xl font-bold"
+            <span class="truncate text-base font-bold"
               >${player.displayName()}</span
             >
             ${this.getRelationSmiley(player, myPlayer)}
@@ -331,21 +331,21 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
 
         <div class="h-px bg-cyan-400/50"></div>
 
-        <div class="flex items-center justify-between text-xl">
+        <div class="flex items-center justify-between text-sm">
           <span class="text-gray-200">${playerType}</span>
           <span class="font-bold text-white">${relationName}</span>
         </div>
 
-        <div class="flex items-center justify-between text-xl" translate="no">
+        <div class="flex items-center justify-between text-sm" translate="no">
           <span class="text-gray-300">Troops</span>
           <span class="font-bold text-white">${renderTroops(totalTroops)}</span>
         </div>
 
         <div
-          class="flex items-center gap-3 px-6 py-4 border-4 rounded-md border-yellow-400 font-bold text-yellow-300 text-2xl"
+          class="flex items-center justify-center gap-2 px-3 py-2 border-2 rounded-md border-yellow-400 font-bold text-yellow-300 text-lg"
           translate="no"
         >
-          <img src=${goldCoinIcon} width="32" height="32" />
+          <img src=${goldCoinIcon} width="22" height="22" />
           <span>${renderNumber(player.gold())}</span>
         </div>
 
@@ -353,7 +353,7 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
           ${this.renderTroopBar(totalTroops, attackingTroops, maxTroops)}
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-1.5">
           ${this.displayUnitCount(player, UnitType.City, cityIcon)}
           ${this.displayUnitCount(player, UnitType.Factory, factoryIcon)}
           ${this.displayUnitCount(player, UnitType.Port, portIcon)}
@@ -612,7 +612,7 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
         @contextmenu=${(e: MouseEvent) => e.preventDefault()}
       >
         <div
-          class="bg-gray-800/92 backdrop-blur-sm rounded-lg shadow-lg text-white text-base w-[400px] max-w-full overflow-hidden border border-white/10 ${containerClasses}"
+          class="bg-gray-800/92 backdrop-blur-sm rounded-lg shadow-lg text-white text-base w-72 max-w-full overflow-hidden border border-white/10 ${containerClasses}"
         >
           ${this.player !== null ? this.renderPlayerInfo(this.player) : ""}
           ${this.unit !== null ? this.renderUnitInfo(this.unit) : ""}
