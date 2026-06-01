@@ -144,60 +144,60 @@ export class UnitDisplay extends LitElement implements Layer {
             this.keybinds["buildFactory"]?.key ?? "2",
           )}
           ${this.renderUnitItem(
-            farmIcon,
-            this._farms,
-            UnitType.Farm,
-            "farm",
-            this.keybinds["buildFarm"]?.key ?? "3",
-          )}
-          ${this.renderUnitItem(
             portIcon,
             this._port,
             UnitType.Port,
             "port",
-            this.keybinds["buildPort"]?.key ?? "4",
+            this.keybinds["buildPort"]?.key ?? "3",
           )}
           ${this.renderUnitItem(
             defensePostIcon,
             this._defensePost,
             UnitType.DefensePost,
             "defense_post",
-            this.keybinds["buildDefensePost"]?.key ?? "5",
+            this.keybinds["buildDefensePost"]?.key ?? "4",
           )}
           ${this.renderUnitItem(
             missileSiloIcon,
             this._missileSilo,
             UnitType.MissileSilo,
             "missile_silo",
-            this.keybinds["buildMissileSilo"]?.key ?? "6",
+            this.keybinds["buildMissileSilo"]?.key ?? "5",
           )}
           ${this.renderUnitItem(
             samLauncherIcon,
             this._samLauncher,
             UnitType.SAMLauncher,
             "sam_launcher",
-            this.keybinds["buildSamLauncher"]?.key ?? "7",
+            this.keybinds["buildSamLauncher"]?.key ?? "6",
+          )}
+          ${this.renderUnitItem(
+            farmIcon,
+            this._farms,
+            UnitType.Farm,
+            "farm",
+            this.keybinds["buildFarm"]?.key ?? "7",
           )}
           ${this.renderUnitItem(
             warshipIcon,
             this._warships,
             UnitType.Warship,
             "warship",
-            this.keybinds["buildWarship"]?.key ?? "8",
+            this.keybinds["buildWarship"]?.key ?? "Shift+7",
           )}
           ${this.renderUnitItem(
             atomBombIcon,
             null,
             UnitType.AtomBomb,
             "atom_bomb",
-            this.keybinds["buildAtomBomb"]?.key ?? "9",
+            this.keybinds["buildAtomBomb"]?.key ?? "Shift+8",
           )}
           ${this.renderUnitItem(
             hydrogenBombIcon,
             null,
             UnitType.HydrogenBomb,
             "hydrogen_bomb",
-            this.keybinds["buildHydrogenBomb"]?.key ?? "0",
+            this.keybinds["buildHydrogenBomb"]?.key ?? "Shift+9",
           )}
           ${this.renderUnitItem(
             mirvIcon,

@@ -429,20 +429,10 @@ export class UserSettingModal extends BaseModal {
       ></setting-keybind>
 
       <setting-keybind
-        action="buildFarm"
-        label=${translateText("user_setting.build_farm")}
-        description=${translateText("user_setting.build_farm_desc")}
-        defaultKey="Digit3"
-        .value=${this.getKeyValue("buildFarm")}
-        .display=${this.getKeyChar("buildFarm")}
-        @change=${this.handleKeybindChange}
-      ></setting-keybind>
-
-      <setting-keybind
         action="buildPort"
         label=${translateText("user_setting.build_port")}
         description=${translateText("user_setting.build_port_desc")}
-        defaultKey="Digit4"
+        defaultKey="Digit3"
         .value=${this.getKeyValue("buildPort")}
         .display=${this.getKeyChar("buildPort")}
         @change=${this.handleKeybindChange}
@@ -452,7 +442,7 @@ export class UserSettingModal extends BaseModal {
         action="buildDefensePost"
         label=${translateText("user_setting.build_defense_post")}
         description=${translateText("user_setting.build_defense_post_desc")}
-        defaultKey="Digit5"
+        defaultKey="Digit4"
         .value=${this.getKeyValue("buildDefensePost")}
         .display=${this.getKeyChar("buildDefensePost")}
         @change=${this.handleKeybindChange}
@@ -462,7 +452,7 @@ export class UserSettingModal extends BaseModal {
         action="buildMissileSilo"
         label=${translateText("user_setting.build_missile_silo")}
         description=${translateText("user_setting.build_missile_silo_desc")}
-        defaultKey="Digit6"
+        defaultKey="Digit5"
         .value=${this.getKeyValue("buildMissileSilo")}
         .display=${this.getKeyChar("buildMissileSilo")}
         @change=${this.handleKeybindChange}
@@ -472,9 +462,19 @@ export class UserSettingModal extends BaseModal {
         action="buildSamLauncher"
         label=${translateText("user_setting.build_sam_launcher")}
         description=${translateText("user_setting.build_sam_launcher_desc")}
-        defaultKey="Digit7"
+        defaultKey="Digit6"
         .value=${this.getKeyValue("buildSamLauncher")}
         .display=${this.getKeyChar("buildSamLauncher")}
+        @change=${this.handleKeybindChange}
+      ></setting-keybind>
+
+      <setting-keybind
+        action="buildFarm"
+        label=${translateText("user_setting.build_farm")}
+        description=${translateText("user_setting.build_farm_desc")}
+        defaultKey="Digit7"
+        .value=${this.getKeyValue("buildFarm")}
+        .display=${this.getKeyChar("buildFarm")}
         @change=${this.handleKeybindChange}
       ></setting-keybind>
 
@@ -482,7 +482,7 @@ export class UserSettingModal extends BaseModal {
         action="buildWarship"
         label=${translateText("user_setting.build_warship")}
         description=${translateText("user_setting.build_warship_desc")}
-        defaultKey="Digit8"
+        defaultKey="Shift+Digit7"
         .value=${this.getKeyValue("buildWarship")}
         .display=${this.getKeyChar("buildWarship")}
         @change=${this.handleKeybindChange}
@@ -492,7 +492,7 @@ export class UserSettingModal extends BaseModal {
         action="buildAtomBomb"
         label=${translateText("user_setting.build_atom_bomb")}
         description=${translateText("user_setting.build_atom_bomb_desc")}
-        defaultKey="Digit9"
+        defaultKey="Shift+Digit8"
         .value=${this.getKeyValue("buildAtomBomb")}
         .display=${this.getKeyChar("buildAtomBomb")}
         @change=${this.handleKeybindChange}
@@ -502,7 +502,7 @@ export class UserSettingModal extends BaseModal {
         action="buildHydrogenBomb"
         label=${translateText("user_setting.build_hydrogen_bomb")}
         description=${translateText("user_setting.build_hydrogen_bomb_desc")}
-        defaultKey="Digit0"
+        defaultKey="Shift+Digit9"
         .value=${this.getKeyValue("buildHydrogenBomb")}
         .display=${this.getKeyChar("buildHydrogenBomb")}
         @change=${this.handleKeybindChange}
