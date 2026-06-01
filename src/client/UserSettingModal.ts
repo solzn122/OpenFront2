@@ -482,7 +482,7 @@ export class UserSettingModal extends BaseModal {
         action="buildWarship"
         label=${translateText("user_setting.build_warship")}
         description=${translateText("user_setting.build_warship_desc")}
-        defaultKey="Shift+Digit7"
+        defaultKey="Shift+Digit1"
         .value=${this.getKeyValue("buildWarship")}
         .display=${this.getKeyChar("buildWarship")}
         @change=${this.handleKeybindChange}
@@ -492,7 +492,7 @@ export class UserSettingModal extends BaseModal {
         action="buildAtomBomb"
         label=${translateText("user_setting.build_atom_bomb")}
         description=${translateText("user_setting.build_atom_bomb_desc")}
-        defaultKey="Shift+Digit8"
+        defaultKey="Shift+Digit2"
         .value=${this.getKeyValue("buildAtomBomb")}
         .display=${this.getKeyChar("buildAtomBomb")}
         @change=${this.handleKeybindChange}
@@ -502,7 +502,7 @@ export class UserSettingModal extends BaseModal {
         action="buildHydrogenBomb"
         label=${translateText("user_setting.build_hydrogen_bomb")}
         description=${translateText("user_setting.build_hydrogen_bomb_desc")}
-        defaultKey="Shift+Digit9"
+        defaultKey="Shift+Digit3"
         .value=${this.getKeyValue("buildHydrogenBomb")}
         .display=${this.getKeyChar("buildHydrogenBomb")}
         @change=${this.handleKeybindChange}
@@ -512,7 +512,7 @@ export class UserSettingModal extends BaseModal {
         action="buildMIRV"
         label=${translateText("user_setting.build_mirv")}
         description=${translateText("user_setting.build_mirv_desc")}
-        defaultKey="Shift+Digit0"
+        defaultKey="Shift+Digit4"
         .value=${this.getKeyValue("buildMIRV")}
         .display=${this.getKeyChar("buildMIRV")}
         @change=${this.handleKeybindChange}

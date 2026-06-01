@@ -186,28 +186,28 @@ export class UnitDisplay extends LitElement implements Layer {
               this._warships,
               UnitType.Warship,
               "warship",
-              this.keybinds["buildWarship"]?.key ?? "Shift+7",
+              this.keybinds["buildWarship"]?.key ?? "Shift+1",
             )}
             ${this.renderUnitItem(
               atomBombIcon,
               null,
               UnitType.AtomBomb,
               "atom_bomb",
-              this.keybinds["buildAtomBomb"]?.key ?? "Shift+8",
+              this.keybinds["buildAtomBomb"]?.key ?? "Shift+2",
             )}
             ${this.renderUnitItem(
               hydrogenBombIcon,
               null,
               UnitType.HydrogenBomb,
               "hydrogen_bomb",
-              this.keybinds["buildHydrogenBomb"]?.key ?? "Shift+9",
+              this.keybinds["buildHydrogenBomb"]?.key ?? "Shift+3",
             )}
             ${this.renderUnitItem(
               mirvIcon,
               null,
               UnitType.MIRV,
               "mirv",
-              this.keybinds["buildMIRV"]?.key ?? "Shift+0",
+              this.keybinds["buildMIRV"]?.key ?? "Shift+4",
             )}
           </div>
         </div>
