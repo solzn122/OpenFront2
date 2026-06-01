@@ -217,6 +217,20 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
     }
   }
 
+  private getRelationColor(relation: Relation): string {
+    switch (relation) {
+      case Relation.Hostile:
+      case Relation.Distrustful:
+        return "text-red-400";
+      case Relation.Friendly:
+        return "text-green-400";
+      case Relation.Neutral:
+        return "text-white";
+      default:
+        return "text-gray-200";
+    }
+  }
+
   private displayUnitCount(player: PlayerView, type: UnitType, icon: string) {
     return !this.game.config().isUnitDisabled(type)
       ? html`<div
@@ -275,13 +289,12 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
   private renderPlayerStatsPanel(player: PlayerView) {
     const myPlayer = this.game.myPlayer();
     const isFriendly = myPlayer?.isFriendly(player);
-    const relationName =
+    const relation =
       !myPlayer || myPlayer === player
-        ? this.getRelationName(Relation.Neutral)
-        : this.getRelationName(
-            this.playerProfile?.relations[myPlayer.smallID()] ??
-              Relation.Neutral,
-          );
+        ? Relation.Neutral
+        : (this.playerProfile?.relations[myPlayer.smallID()] ??
+          Relation.Neutral);
+    const relationName = this.getRelationName(relation);
     const totalTroops = player.troops();
     const maxTroops = this.game.config().maxTroops(player);
     const attackingTroops = player
@@ -333,7 +346,9 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
 
         <div class="flex items-center justify-between text-sm">
           <span class="text-gray-200">${playerType}</span>
-          <span class="font-bold text-white">${relationName}</span>
+          <span class="font-bold ${this.getRelationColor(relation)}"
+            >${relationName}</span
+          >
         </div>
 
         <div class="flex items-center justify-between text-sm" translate="no">
@@ -612,7 +627,7 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
         @contextmenu=${(e: MouseEvent) => e.preventDefault()}
       >
         <div
-          class="bg-gray-800/92 backdrop-blur-sm rounded-lg shadow-lg text-white text-base w-72 max-w-full overflow-hidden border border-white/10 ${containerClasses}"
+          class="bg-gray-800/70 backdrop-blur-sm rounded-lg shadow-lg text-white text-base w-72 max-w-full overflow-hidden border border-white/10 ${containerClasses}"
         >
           ${this.player !== null ? this.renderPlayerInfo(this.player) : ""}
           ${this.unit !== null ? this.renderUnitInfo(this.unit) : ""}
