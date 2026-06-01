@@ -21,6 +21,7 @@ import { Layer } from "./Layer";
 const warshipIcon = assetUrl("images/BattleshipIconWhite.svg");
 const cityIcon = assetUrl("images/CityIconWhite.svg");
 const factoryIcon = assetUrl("images/FactoryIconWhite.svg");
+const farmIcon = assetUrl("images/TreeIconWhite.svg");
 const goldCoinIcon = assetUrl("images/GoldCoinIcon.svg");
 const mirvIcon = assetUrl("images/MIRVIcon.svg");
 const missileSiloIcon = assetUrl("images/MissileSiloIconWhite.svg");
@@ -40,6 +41,7 @@ export class UnitDisplay extends LitElement implements Layer {
   private _cities = 0;
   private _warships = 0;
   private _factories = 0;
+  private _farms = 0;
   private _missileSilo = 0;
   private _port = 0;
   private _defensePost = 0;
@@ -103,6 +105,7 @@ export class UnitDisplay extends LitElement implements Layer {
     this._defensePost = player.totalUnitLevels(UnitType.DefensePost);
     this._samLauncher = player.totalUnitLevels(UnitType.SAMLauncher);
     this._factories = player.totalUnitLevels(UnitType.Factory);
+    this._farms = player.totalUnitLevels(UnitType.Farm);
     this._warships = player.totalUnitLevels(UnitType.Warship);
     this.requestUpdate();
   }
@@ -139,6 +142,13 @@ export class UnitDisplay extends LitElement implements Layer {
             UnitType.Factory,
             "factory",
             this.keybinds["buildFactory"]?.key ?? "2",
+          )}
+          ${this.renderUnitItem(
+            farmIcon,
+            this._farms,
+            UnitType.Farm,
+            "farm",
+            this.keybinds["buildFarm"]?.key ?? "Shift+2",
           )}
           ${this.renderUnitItem(
             portIcon,

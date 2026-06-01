@@ -923,6 +923,7 @@ export class InputHandler {
     }> = [
       { key: "buildCity", type: UnitType.City },
       { key: "buildFactory", type: UnitType.Factory },
+      { key: "buildFarm", type: UnitType.Farm },
       { key: "buildPort", type: UnitType.Port },
       { key: "buildDefensePost", type: UnitType.DefensePost },
       { key: "buildMissileSilo", type: UnitType.MissileSilo },

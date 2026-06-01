@@ -429,6 +429,16 @@ export class UserSettingModal extends BaseModal {
       ></setting-keybind>
 
       <setting-keybind
+        action="buildFarm"
+        label=${translateText("user_setting.build_farm")}
+        description=${translateText("user_setting.build_farm_desc")}
+        defaultKey="Shift+Digit2"
+        .value=${this.getKeyValue("buildFarm")}
+        .display=${this.getKeyChar("buildFarm")}
+        @change=${this.handleKeybindChange}
+      ></setting-keybind>
+
+      <setting-keybind
         action="buildPort"
         label=${translateText("user_setting.build_port")}
         description=${translateText("user_setting.build_port_desc")}

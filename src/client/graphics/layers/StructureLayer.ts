@@ -11,6 +11,7 @@ import { GameUpdateType } from "../../../core/game/GameUpdates";
 import { GameView, UnitView } from "../../../core/game/GameView";
 const cityIcon = assetUrl("images/buildings/cityAlt1.png");
 const factoryIcon = assetUrl("images/buildings/factoryAlt1.png");
+const farmIcon = assetUrl("images/TreeIconWhite.svg");
 const shieldIcon = assetUrl("images/buildings/fortAlt3.png");
 const anchorIcon = assetUrl("images/buildings/port1.png");
 const missileSiloIcon = assetUrl("images/buildings/silo1.png");
@@ -52,6 +53,11 @@ export class StructureLayer implements Layer {
     },
     [UnitType.Factory]: {
       icon: factoryIcon,
+      borderRadius: BASE_BORDER_RADIUS * RADIUS_SCALE_FACTOR,
+      territoryRadius: BASE_TERRITORY_RADIUS * RADIUS_SCALE_FACTOR,
+    },
+    [UnitType.Farm]: {
+      icon: farmIcon,
       borderRadius: BASE_BORDER_RADIUS * RADIUS_SCALE_FACTOR,
       territoryRadius: BASE_TERRITORY_RADIUS * RADIUS_SCALE_FACTOR,
     },

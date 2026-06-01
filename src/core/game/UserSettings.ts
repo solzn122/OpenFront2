@@ -7,6 +7,7 @@ export function getDefaultKeybinds(isMac: boolean): Record<string, string> {
     coordinateGrid: "KeyM",
     buildCity: "Digit1",
     buildFactory: "Digit2",
+    buildFarm: "Shift+Digit2",
     buildPort: "Digit3",
     buildDefensePost: "Digit4",
     buildMissileSilo: "Digit5",

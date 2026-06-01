@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import { assetUrl } from "../../../core/AssetUrls";
 import { Theme } from "../../../core/configuration/Config";
+import { FARM_FACTORY_MAX_LINK_DISTANCE } from "../../../core/execution/FarmExecution";
 import {
   Cell,
   PlayerBuildableUnitType,
@@ -11,6 +12,7 @@ import { TransformHandler } from "../TransformHandler";
 const anchorIcon = assetUrl("images/AnchorIcon.v1.png");
 const cityIcon = assetUrl("images/CityIcon.v1.png");
 const factoryIcon = assetUrl("images/FactoryUnit.v1.png");
+const farmIcon = assetUrl("images/TreeIconWhite.svg");
 const missileSiloIcon = assetUrl("images/MissileSiloUnit.v1.png");
 const SAMMissileIcon = assetUrl("images/SamLauncherUnit.v1.png");
 const shieldIcon = assetUrl("images/ShieldIcon.v1.png");
@@ -19,6 +21,7 @@ export const STRUCTURE_SHAPES: Partial<Record<UnitType, ShapeType>> = {
   [UnitType.City]: "circle",
   [UnitType.Port]: "pentagon",
   [UnitType.Factory]: "circle",
+  [UnitType.Farm]: "pentagon",
   [UnitType.DefensePost]: "octagon",
   [UnitType.SAMLauncher]: "square",
   [UnitType.MissileSilo]: "triangle",
@@ -65,6 +68,7 @@ export class SpriteFactory {
   > = new Map([
     [UnitType.City, { iconPath: cityIcon, image: null }],
     [UnitType.Factory, { iconPath: factoryIcon, image: null }],
+    [UnitType.Farm, { iconPath: farmIcon, image: null }],
     [UnitType.DefensePost, { iconPath: shieldIcon, image: null }],
     [UnitType.Port, { iconPath: anchorIcon, image: null }],
     [UnitType.MissileSilo, { iconPath: missileSiloIcon, image: null }],
@@ -496,6 +500,9 @@ export class SpriteFactory {
         break;
       case UnitType.Factory:
         radius = this.game.config().trainStationMaxRange();
+        break;
+      case UnitType.Farm:
+        radius = FARM_FACTORY_MAX_LINK_DISTANCE;
         break;
       case UnitType.DefensePost:
         radius = this.game.config().defensePostRange();
