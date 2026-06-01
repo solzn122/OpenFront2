@@ -1,0 +1,9 @@
+# src/client/graphics/TransformHandler.ts
+
+- Purpose: Source module containing application logic.
+- Category: source
+- Size: 12685 bytes
+- Dependencies: ../../core/EventBus, ../../core/game/Game, ../../core/game/GameView, ../InputHandler
+- Public interfaces: GoToPlayerEvent, GoToPositionEvent, GoToUnitEvent, GOTO_INTERVAL_MS, CAMERA_MAX_SPEED, CAMERA_SMOOTHING, TransformHandler
+- Important implementation details: Classes: GoToPlayerEvent, GoToPositionEvent, GoToUnitEvent, TransformHandler Functions/methods: GoToPlayerEvent.constructor, GoToPositionEvent.constructor, GoToUnitEvent.constructor, TransformHandler.constructor, TransformHandler.updateCanvasBoundingRect, TransformHandler.boundingRect, TransformHandler.width, TransformHandler.hasChanged, TransformHandler.resetChanged, TransformHandler.handleTransform, TransformHandler.worldToCanvasCoordinates, TransformHandler.worldToScreenCoordinates, TransformHandler.screenToWorldCoordinates, TransformHandler.canvasToScreenCoordinates, TransformHandler.screenToCanvasCoordinates, TransformHandler.screenBoundingRect, TransformHandler.isOnScreen, TransformHandler.screenCenter, TransformHandler.onGoToPlayer, TransformHandler.onGoToPosition, TransformHandler.onGoToUnit, TransformHandler.centerCamera, TransformHandler.goTo, TransformHandler.onZoom, TransformHandler.clampOffsets, TransformHandler.onMove, TransformHandler.clearTarget, TransformHandler.override, TransformHandler.centerAll Events: ZoomEvent, DragEvent, GoToPlayerEvent, GoToPositionEvent, GoToUnitEvent, CenterCameraEvent Content notes: import { EventBus, GameEvent } from "../../core/EventBus"; import { Cell } from "../../core/game/Game"; import { GameView, PlayerView, UnitView } from "../../core/game/GameView"; import { CenterCameraEvent, DragEvent, ZoomEvent } from "../InputHandler"; export class GoToPlayerEvent implements GameEvent { constructor( public player: PlayerView, public zoom?: number,
+

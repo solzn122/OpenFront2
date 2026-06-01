@@ -1,0 +1,9 @@
+# src/core/execution/nation/NationStructureBehavior.ts
+
+- Purpose: Source module containing application logic.
+- Category: source
+- Size: 43880 bytes
+- Dependencies: ../../game/Game, ../../game/GameMap, ../../game/TrainStation, ../../PseudoRandom, ../../Util, ../ConstructionExecution, ../UpgradeStructureExecution, ../Util, ./NationUtils
+- Public interfaces: NationStructureBehavior
+- Important implementation details: Classes: NationStructureBehavior Functions/methods: getStructureRatios, NationStructureBehavior.constructor, NationStructureBehavior.handleStructures, NationStructureBehavior.tryBuildDefensePost, NationStructureBehavior.defensePostNeeded, NationStructureBehavior.getAttackFrontTiles, NationStructureBehavior.countDefensePostsNearFront, NationStructureBehavior.sampleTilesNearFront, NationStructureBehavior.isOnStructureCooldown, NationStructureBehavior.isInPostSaveUpBlockedPhase, NationStructureBehavior.doHandleStructures, NationStructureBehavior.hasHighStartingGold, NationStructureBehavior.isHighNationDensity, NationStructureBehavior.shouldBuildStructure, NationStructureBehavior.cost, NationStructureBehavior.maybeSpawnStructure, NationStructureBehavior.getPerceivedCost, NationStructureBehavior.getSaveUpTarget, NationStructureBehavior.maybeUpgradeStructure, NationStructureBehavior.getTotalStructureDensity, NationStructureBehavior.findBestStructureToUpgrade, NationStructureBehavior.structureSpawnTile, NationStructureBehavior.randCoastalTileArray, NationStructureBehavior.arraySampler, NationStructureBehavior.structureSpawnTileValue, NationStructureBehavior.missileSiloValue, NationStructureBehavior.portValue, NationStructureBehavior.factoryValue, NationStructureBehavior.shouldUseConnectivityScore, NationStructureBehavior.getOrBuildReachableStations Content notes: import { Attack, Difficulty, Game, GameMode, Gold, Player, PlayerType,
+

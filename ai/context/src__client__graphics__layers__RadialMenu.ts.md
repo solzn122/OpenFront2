@@ -1,0 +1,9 @@
+# src/client/graphics/layers/RadialMenu.ts
+
+- Purpose: Source module containing application logic.
+- Category: source
+- Size: 43354 bytes
+- Dependencies: d3, ../../../core/AssetUrls, ../../../core/EventBus, ../../InputHandler, ../../sound/Sounds, ../../Utils, ./Layer, ./RadialMenuElements
+- Public interfaces: CloseRadialMenuEvent, RadialMenu
+- Important implementation details: Classes: CloseRadialMenuEvent, RadialMenu Functions/methods: resolveColor, CloseRadialMenuEvent.constructor, RadialMenu.constructor, RadialMenu.init, RadialMenu.createMenuElement, RadialMenu.createTooltipElement, RadialMenu.getInnerRadiusForLevel, RadialMenu.getOuterRadiusForLevel, RadialMenu.renderMenuItems, RadialMenu.renderPaths, RadialMenu.setupEventHandlers, onHover, onMouseOut, onClick, handleMouseMove, RadialMenu.isItemDisabled, RadialMenu.renderIconsAndText, RadialMenu.setupAnimations, RadialMenu.navigateToSubMenu, RadialMenu.updateMenuGroupVisibility, RadialMenu.updateMenuVisibility, RadialMenu.animatePreviousMenu, RadialMenu.navigateBack, RadialMenu.updateMenuLevels, RadialMenu.clearSelectedItemHoverState, RadialMenu.animateMenuTransitions, RadialMenu.renderAndAnimateNewMenu, RadialMenu.animateExistingMenu, RadialMenu.showRadialMenu, RadialMenu.hideRadialMenu Events: CloseViewEvent, contextmenu, click, new CloseRadialMenuEvent(), new CloseRadialMenuEvent(), click, mouseout, mouseover, touchstart, click, new PlaySoundEffectEvent("click"), mouseover, mouseout, mousemove, click, touchstart, end, start, end, end, end, end, end, resize Content notes: import * as d3 from "d3"; import { assetUrl } from "../../../core/AssetUrls"; import { EventBus, GameEvent } from "../../../core/EventBus"; import { CloseViewEvent } from "../../InputHandler"; import { PlaySoundEffectEvent } from "../../sound/Sounds"; import { getSvgAspectRatio, translateText } from "../../Utils"; import { Layer } from "./Layer"; import {
+
