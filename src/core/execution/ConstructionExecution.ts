@@ -2,6 +2,7 @@ import { Execution, Game, Player, Tick, Unit, UnitType } from "../game/Game";
 import { TileRef } from "../game/GameMap";
 import { CityExecution } from "./CityExecution";
 import { DefensePostExecution } from "./DefensePostExecution";
+import { FarmExecution } from "./FarmExecution";
 import { FactoryExecution } from "./FactoryExecution";
 import { MirvExecution } from "./MIRVExecution";
 import { MissileSiloExecution } from "./MissileSiloExecution";
@@ -145,6 +146,7 @@ export class ConstructionExecution implements Execution {
         this.mg.addExecution(new FactoryExecution(this.structure!));
         break;
       case UnitType.Farm:
+        this.mg.addExecution(new FarmExecution(this.structure!));
         break;
       default:
         console.warn(
