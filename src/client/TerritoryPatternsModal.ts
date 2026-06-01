@@ -5,7 +5,12 @@ import { BaseModal } from "./components/BaseModal";
 import { modalHeader } from "./components/ui/ModalHeader";
 import { translateText } from "./Utils";
 
-const RED_SKIN_COLOR = "#e53935";
+const SKIN_COLORS = [
+  { name: "Red", color: "#e53935" },
+  { name: "Yellow", color: "#fdd835" },
+  { name: "Green", color: "#43a047" },
+  { name: "Blue", color: "#1e88e5" },
+] as const;
 
 @customElement("territory-patterns-modal")
 export class TerritoryPatternsModal extends BaseModal {
@@ -37,7 +42,6 @@ export class TerritoryPatternsModal extends BaseModal {
   }
 
   render() {
-    const isSelected = this.selectedColor === RED_SKIN_COLOR;
     const content = html`
       <div class="${this.modalContainerClass}">
         <div class="relative flex flex-col border-b border-white/10 pb-4 shrink-0">
@@ -49,19 +53,25 @@ export class TerritoryPatternsModal extends BaseModal {
         </div>
 
         <div class="flex-1 overflow-y-auto px-3 py-8">
-          <div class="flex justify-center">
-            <button
-              class="w-44 rounded-xl border ${isSelected
-                ? "border-yellow-400 shadow-[0_0_0_2px_rgba(250,204,21,0.25)]"
-                : "border-white/15 hover:border-white/35"} bg-white/5 p-3 transition-all"
-              @click=${() => this.selectRedSkin()}
-            >
-              <div
-                class="aspect-square rounded-lg border border-black/30 shadow-inner"
-                style="background: ${RED_SKIN_COLOR};"
-              ></div>
-              <div class="mt-3 text-center text-white font-bold">Red</div>
-            </button>
+          <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+            ${SKIN_COLORS.map(
+              (skin) => html`
+                <button
+                  class="rounded-xl border ${this.selectedColor === skin.color
+                    ? "border-yellow-400 shadow-[0_0_0_2px_rgba(250,204,21,0.25)]"
+                    : "border-white/15 hover:border-white/35"} bg-white/5 p-3 transition-all"
+                  @click=${() => this.selectSkin(skin.color, skin.name)}
+                >
+                  <div
+                    class="aspect-square rounded-lg border border-black/30 shadow-inner"
+                    style="background: ${skin.color};"
+                  ></div>
+                  <div class="mt-3 text-center text-white font-bold">
+                    ${skin.name}
+                  </div>
+                </button>
+              `,
+            )}
           </div>
         </div>
       </div>
@@ -91,15 +101,15 @@ export class TerritoryPatternsModal extends BaseModal {
 
   protected onClose(): void {}
 
-  private selectRedSkin() {
+  private selectSkin(color: string, name: string) {
     this.userSettings.setSelectedPatternName(undefined);
-    this.userSettings.setTerritoryColor(RED_SKIN_COLOR);
-    this.selectedColor = RED_SKIN_COLOR;
+    this.userSettings.setTerritoryColor(color);
+    this.selectedColor = color;
     this.refresh();
     window.dispatchEvent(
       new CustomEvent("show-message", {
         detail: {
-          message: `Red ${translateText("territory_patterns.selected")}`,
+          message: `${name} ${translateText("territory_patterns.selected")}`,
           duration: 2000,
         },
       }),

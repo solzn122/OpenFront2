@@ -519,7 +519,9 @@ export class InputHandler {
       }
 
       // Two-phase build keybind matching: exact code match first, then digit/Numpad alias.
-      const matchedBuild = this.resolveBuildKeybind(e.code, e.shiftKey);
+      const matchedBuild = this.gameView.inSpawnPhase()
+        ? null
+        : this.resolveBuildKeybind(e.code, e.shiftKey);
       if (matchedBuild !== null) {
         e.preventDefault();
         this.setGhostStructure(matchedBuild);

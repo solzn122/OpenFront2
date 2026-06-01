@@ -154,6 +154,13 @@ type CosmeticResult =
   | { type: "allowed"; cosmetics: PlayerCosmetics }
   | { type: "forbidden"; reason: string };
 
+const freeTerritoryColors = new Set([
+  "#e53935",
+  "#fdd835",
+  "#43a047",
+  "#1e88e5",
+]);
+
 export interface PrivilegeChecker {
   isAllowed(flares: string[], refs: PlayerCosmeticRefs): CosmeticResult;
   censor(
@@ -271,6 +278,10 @@ export class PrivilegeCheckerImpl implements PrivilegeChecker {
   }
 
   isColorAllowed(flares: string[], color: string): PlayerColor {
+    if (freeTerritoryColors.has(color)) {
+      return { color };
+    }
+
     const allowedColors = flares
       .filter((flare) => flare.startsWith("color:"))
       .map((flare) => flare.split(":")[1]);
@@ -296,7 +307,11 @@ const defaultMatcher = createMatcher(baselineBannedWords);
 
 export class FailOpenPrivilegeChecker implements PrivilegeChecker {
   isAllowed(flares: string[], refs: PlayerCosmeticRefs): CosmeticResult {
-    return { type: "allowed", cosmetics: {} };
+    const cosmetics: PlayerCosmetics = {};
+    if (refs.color && freeTerritoryColors.has(refs.color)) {
+      cosmetics.color = { color: refs.color };
+    }
+    return { type: "allowed", cosmetics };
   }
 
   censor(
