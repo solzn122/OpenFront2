@@ -838,24 +838,24 @@ export class StructureIconsLayer implements Layer {
         render.iconContainer.filters = [];
         render.dotContainer.filters = [];
       }
-      this.applyFarmLinkFilters(render, structureInfos.visible);
+      this.applyFarmSelectionFilter(render, structureInfos.visible);
     }
   }
 
-  private applyFarmLinkFilters(
+  private applyFarmSelectionFilter(
     render: StructureRenderInfo,
     isVisible: boolean,
   ): void {
-    if (render.unit.type() !== UnitType.Farm || !isVisible) {
+    if (
+      render.unit.type() !== UnitType.Farm ||
+      !isVisible ||
+      this.selectedFarmId !== render.unit.id()
+    ) {
       return;
     }
 
-    const filters =
-      this.selectedFarmId === render.unit.id() || render.unit.targetUnitId()
-        ? this.filterGreenArray
-        : this.filterRedArray;
-    render.iconContainer.filters = filters;
-    render.dotContainer.filters = filters;
+    render.iconContainer.filters = this.filterWhiteArray;
+    render.dotContainer.filters = this.filterWhiteArray;
   }
 
   private checkForDeletionState(render: StructureRenderInfo, unit: UnitView) {
