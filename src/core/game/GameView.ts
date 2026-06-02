@@ -264,15 +264,11 @@ export class PlayerView {
       } satisfies ColorPalette;
     }
 
-    if (this.team() === null) {
-      this._territoryColor = colord(
-        this.cosmetics.color?.color ??
-          pattern?.colorPalette?.primaryColor ??
-          defaultTerritoryColor.toHex(),
-      );
-    } else {
-      this._territoryColor = defaultTerritoryColor;
-    }
+    const selectedTerritoryColor =
+      this.cosmetics.color?.color ?? pattern?.colorPalette?.primaryColor;
+    this._territoryColor = colord(
+      selectedTerritoryColor ?? defaultTerritoryColor.toHex(),
+    );
 
     this._structureColors = theme.structureColors(this._territoryColor);
 
@@ -707,6 +703,13 @@ export class GameView implements GameMap {
     this._cosmetics = new Map(
       humans.map((h) => [h.clientID, h.cosmetics ?? {}]),
     );
+    const localTerritoryColor = userSettings.getTerritoryColor();
+    if (this._myClientID !== undefined && localTerritoryColor !== null) {
+      this._cosmetics.set(this._myClientID, {
+        ...(this._cosmetics.get(this._myClientID) ?? {}),
+        color: { color: localTerritoryColor },
+      });
+    }
     for (const nation of this._mapData.nations) {
       // Nations don't have client ids, so we use their name as the key instead.
       this._cosmetics.set(nation.name, {

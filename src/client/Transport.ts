@@ -55,6 +55,13 @@ export class SendUpgradeStructureIntentEvent implements GameEvent {
   ) {}
 }
 
+export class SendLinkFarmFactoryIntentEvent implements GameEvent {
+  constructor(
+    public readonly farmId: number,
+    public readonly factoryId: number,
+  ) {}
+}
+
 export class SendAllianceRejectIntentEvent implements GameEvent {
   constructor(public readonly requestor: PlayerView) {}
 }
@@ -216,6 +223,9 @@ export class Transport {
     this.eventBus.on(SendAttackIntentEvent, (e) => this.onSendAttackIntent(e));
     this.eventBus.on(SendUpgradeStructureIntentEvent, (e) =>
       this.onSendUpgradeStructureIntent(e),
+    );
+    this.eventBus.on(SendLinkFarmFactoryIntentEvent, (e) =>
+      this.onSendLinkFarmFactoryIntent(e),
     );
     this.eventBus.on(SendBoatAttackIntentEvent, (e) =>
       this.onSendBoatAttackIntent(e),
@@ -498,6 +508,16 @@ export class Transport {
       type: "upgrade_structure",
       unit: event.unitType,
       unitId: event.unitId,
+    });
+  }
+
+  private onSendLinkFarmFactoryIntent(
+    event: SendLinkFarmFactoryIntentEvent,
+  ) {
+    this.sendIntent({
+      type: "link_farm_factory",
+      farmId: event.farmId,
+      factoryId: event.factoryId,
     });
   }
 

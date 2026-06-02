@@ -162,6 +162,8 @@
     "build_city_desc": "Increases your max population. Useful when you can't expand your territory or you're about to hit your population limit.",
     "build_factory": "Factory",
     "build_factory_desc": "Automatically builds railroads to nearby cities, ports and other factories, and can also link up with friendly neighbors. Trains spawn regularly and give you a fixed amount of gold for each building they visit along the route, with extra gold for visiting your neighbors' buildings.",
+    "build_farm": "Farm",
+    "build_farm_desc": "Links to an owned or allied Factory and generates gold every 15 seconds.",
     "build_defense": "Defense Post",
     "build_defense_desc": "Increases defenses around nearby borders, which show a checkered pattern. Attacks from enemies are slower and have more casualties.",
     "build_port": "Port",
@@ -668,7 +670,8 @@
     "atom_bomb": "Atom Bomb",
     "hydrogen_bomb": "Hydrogen Bomb",
     "mirv": "MIRV",
-    "factory": "Factory"
+    "factory": "Factory",
+    "farm": "Farm"
   },
   "user_setting": {
     "title": "Settings",
@@ -718,6 +721,8 @@
     "build_city_desc": "Build a City under your cursor.",
     "build_factory": "Build Factory",
     "build_factory_desc": "Build a Factory under your cursor.",
+    "build_farm": "Build Farm",
+    "build_farm_desc": "Build a Farm under your cursor.",
     "build_defense_post": "Build Defense Post",
     "build_defense_post_desc": "Build a Defense Post under your cursor.",
     "build_port": "Build Port",
@@ -891,7 +896,8 @@
       "port": "Sends trade ships to generate gold",
       "defense_post": "Increases defenses of nearby borders",
       "city": "Increases max population",
-      "factory": "Creates railroads and spawns trains"
+      "factory": "Creates railroads and spawns trains",
+      "farm": "Links to a Factory and generates gold every 15 seconds"
     },
     "warship_shift_hint": "Hold Shift and drag to select multiple warships at once",
     "not_enough_money": "Not enough money"

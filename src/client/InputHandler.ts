@@ -519,7 +519,9 @@ export class InputHandler {
       }
 
       // Two-phase build keybind matching: exact code match first, then digit/Numpad alias.
-      const matchedBuild = this.resolveBuildKeybind(e.code, e.shiftKey);
+      const matchedBuild = this.gameView.inSpawnPhase()
+        ? null
+        : this.resolveBuildKeybind(e.code, e.shiftKey);
       if (matchedBuild !== null) {
         e.preventDefault();
         this.setGhostStructure(matchedBuild);
@@ -923,6 +925,7 @@ export class InputHandler {
     }> = [
       { key: "buildCity", type: UnitType.City },
       { key: "buildFactory", type: UnitType.Factory },
+      { key: "buildFarm", type: UnitType.Farm },
       { key: "buildPort", type: UnitType.Port },
       { key: "buildDefensePost", type: UnitType.DefensePost },
       { key: "buildMissileSilo", type: UnitType.MissileSilo },

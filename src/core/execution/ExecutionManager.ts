@@ -16,6 +16,7 @@ import { EmbargoAllExecution } from "./EmbargoAllExecution";
 import { EmbargoExecution } from "./EmbargoExecution";
 import { EmojiExecution } from "./EmojiExecution";
 import { MarkDisconnectedExecution } from "./MarkDisconnectedExecution";
+import { LinkFarmFactoryExecution } from "./LinkFarmFactoryExecution";
 import { MoveWarshipExecution } from "./MoveWarshipExecution";
 import { NationExecution } from "./NationExecution";
 import { NoOpExecution } from "./NoOpExecution";
@@ -108,6 +109,12 @@ export class Executor {
 
       case "upgrade_structure":
         return new UpgradeStructureExecution(player, intent.unitId);
+      case "link_farm_factory":
+        return new LinkFarmFactoryExecution(
+          player,
+          intent.farmId,
+          intent.factoryId,
+        );
       case "delete_unit":
         return new DeleteUnitExecution(player, intent.unitId);
       case "quick_chat":

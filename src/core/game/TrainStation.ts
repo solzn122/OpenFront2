@@ -52,6 +52,7 @@ export function createTrainStopHandlers(
     [UnitType.City]: new TradeStationStopHandler(),
     [UnitType.Port]: new TradeStationStopHandler(),
     [UnitType.Factory]: new FactoryStopHandler(),
+    [UnitType.Farm]: new FactoryStopHandler(),
   };
 }
 

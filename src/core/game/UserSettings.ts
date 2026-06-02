@@ -11,10 +11,11 @@ export function getDefaultKeybinds(isMac: boolean): Record<string, string> {
     buildDefensePost: "Digit4",
     buildMissileSilo: "Digit5",
     buildSamLauncher: "Digit6",
-    buildWarship: "Digit7",
-    buildAtomBomb: "Digit8",
-    buildHydrogenBomb: "Digit9",
-    buildMIRV: "Digit0",
+    buildFarm: "Digit7",
+    buildWarship: "Shift+Digit1",
+    buildAtomBomb: "Shift+Digit2",
+    buildHydrogenBomb: "Shift+Digit3",
+    buildMIRV: "Shift+Digit4",
     attackRatioDown: "KeyT",
     attackRatioUp: "KeyY",
     boatAttack: "KeyB",
@@ -266,6 +267,18 @@ export class UserSettings {
       this.removeCached(PATTERN_KEY);
     } else {
       this.setCached(PATTERN_KEY, patternName);
+    }
+  }
+
+  getTerritoryColor(): string | null {
+    return this.getCached(COLOR_KEY);
+  }
+
+  setTerritoryColor(color: string | undefined): void {
+    if (color === undefined) {
+      this.removeCached(COLOR_KEY);
+    } else {
+      this.setCached(COLOR_KEY, color);
     }
   }
 

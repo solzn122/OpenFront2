@@ -26,6 +26,7 @@ import {
 } from "../../InputHandler";
 import {
   BuildUnitIntentEvent,
+  SendLinkFarmFactoryIntentEvent,
   SendUpgradeStructureIntentEvent,
 } from "../../Transport";
 import { renderNumber } from "../../Utils";
@@ -102,6 +103,7 @@ export class StructureIconsLayer implements Layer {
   private pendingConfirm: MouseUpEvent | null = null;
   private hasHiddenStructure = false;
   private rebuildPending = false;
+  private selectedFarmId: number | null = null;
   potentialUpgrade: StructureRenderInfo | undefined;
   private filterRedArray: OutlineFilter[] = [];
   private filterGreenArray: OutlineFilter[] = [];
@@ -527,7 +529,10 @@ export class StructureIconsLayer implements Layer {
    * and mouse click (MouseUpEvent) so numpad-select-then-confirm works.
    */
   private requestConfirmStructure(e: MouseUpEvent): void {
-    if (!this.ghostUnit && !this.uiState.ghostStructure) return;
+    if (!this.ghostUnit && !this.uiState.ghostStructure) {
+      this.handleFarmFactoryLinkClick(e);
+      return;
+    }
     if (this.isGhostReadyForConfirm()) {
       this.createStructure(e);
     } else {
@@ -728,6 +733,67 @@ export class StructureIconsLayer implements Layer {
     return this.rendersByUnitId.get(unitView.id());
   }
 
+  private clickedStructure(e: MouseUpEvent): UnitView | null {
+    const cell = this.transformHandler.screenToWorldCoordinates(e.x, e.y);
+    if (!this.game.isValidCoord(cell.x, cell.y)) {
+      return null;
+    }
+    const tile = this.game.ref(cell.x, cell.y);
+    const clickedUnit =
+      this.game
+        .units()
+        .find((unit) => Structures.has(unit.type()) && unit.tile() === tile) ??
+      null;
+    if (clickedUnit) {
+      return clickedUnit;
+    }
+    return (
+      this.game
+        .nearbyUnits(tile, 6, Structures.types)
+        .sort((a, b) => a.distSquared - b.distSquared)[0]?.unit ?? null
+    );
+  }
+
+  private handleFarmFactoryLinkClick(e: MouseUpEvent): void {
+    const unit = this.clickedStructure(e);
+    const myPlayer = this.game.myPlayer();
+    if (!unit || !myPlayer) {
+      this.selectedFarmId = null;
+      this.refreshFarmLinkFilters();
+      return;
+    }
+
+    if (unit.type() === UnitType.Farm && unit.owner().id() === myPlayer.id()) {
+      this.selectedFarmId = unit.id();
+      this.refreshFarmLinkFilters();
+      return;
+    }
+
+    if (this.selectedFarmId !== null && unit.type() === UnitType.Factory) {
+      const factoryOwner = unit.owner();
+      if (
+        factoryOwner.id() === myPlayer.id() ||
+        myPlayer.isFriendly(factoryOwner)
+      ) {
+        this.eventBus.emit(
+          new SendLinkFarmFactoryIntentEvent(this.selectedFarmId, unit.id()),
+        );
+      }
+      this.selectedFarmId = null;
+      this.refreshFarmLinkFilters();
+      return;
+    }
+
+    this.selectedFarmId = null;
+    this.refreshFarmLinkFilters();
+  }
+
+  private refreshFarmLinkFilters(): void {
+    for (const render of this.rendersByUnitId.values()) {
+      this.modifyVisibility(render);
+    }
+  }
+
   private handleActiveUnit(unitView: UnitView) {
     if (this.seenUnitIds.has(unitView.id())) {
       const render = this.findRenderByUnit(unitView);
@@ -736,6 +802,7 @@ export class StructureIconsLayer implements Layer {
         this.checkForDeletionState(render, unitView);
         this.checkForOwnershipChange(render, unitView);
         this.checkForLevelChange(render, unitView);
+        this.modifyVisibility(render);
       }
     } else if (
       this.structures.has(unitView.type() as PlayerBuildableUnitType)
@@ -771,7 +838,24 @@ export class StructureIconsLayer implements Layer {
         render.iconContainer.filters = [];
         render.dotContainer.filters = [];
       }
+      this.applyFarmSelectionFilter(render, structureInfos.visible);
     }
+  }
+
+  private applyFarmSelectionFilter(
+    render: StructureRenderInfo,
+    isVisible: boolean,
+  ): void {
+    if (
+      render.unit.type() !== UnitType.Farm ||
+      !isVisible ||
+      this.selectedFarmId !== render.unit.id()
+    ) {
+      return;
+    }
+
+    render.iconContainer.filters = this.filterWhiteArray;
+    render.dotContainer.filters = this.filterWhiteArray;
   }
 
   private checkForDeletionState(render: StructureRenderInfo, unit: UnitView) {
@@ -925,6 +1009,9 @@ export class StructureIconsLayer implements Layer {
     const unitId = render.unit.id();
     this.rendersByUnitId.delete(unitId);
     this.seenUnitIds.delete(unitId);
+    if (this.selectedFarmId === unitId) {
+      this.selectedFarmId = null;
+    }
     if (this.potentialUpgrade?.unit.id() === unitId) {
       this.potentialUpgrade = undefined;
     }
